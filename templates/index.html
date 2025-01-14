@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease and Alzheimer’s Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" 
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="text-center">Disease Prediction</h1>
+        <form class="p-3 text-center" action="/" method="post" enctype="multipart/form-data">
+            <label for="model_key" class="form-label">Select Prediction Model:</label>
+            <select class="form-control mb-3" name="model_key" id="model_key" required>
+                <option value="Alzheimers">Alzheimer’s Classification</option>
+                <option value="Brain_tumor">Brain Tumor</option>
+                <option value="Diabetic">Diabetic Retinopathy</option>
+                <option value="Kidney">Kidney CT Scan</option>
+                <option value="Respiratory">Respiratory Diseases</option>
+            </select>
+            <input class="form-control mb-3" type="file" name="imagefile" accept="image/*" required>
+            <input class="btn btn-primary" type="submit" value="Predict">
+        </form>
+
+        {% if prediction %}
+            <div class="alert alert-success text-center mt-3">
+                <h4>Prediction: {{ prediction }}</h4>
+            </div>
+            <div class="text-center mt-3">
+                <h4>Uploaded Image:</h4>
+                <img src="{{ image_url }}" alt="Uploaded Image" class="img-fluid" style="max-width: 500px;">
+            </div>
+        {% elif error %}
+            <div class="alert alert-danger text-center mt-3">
+                <h4>Error: {{ error }}</h4>
+            </div>
+        {% endif %}
+    </div> 
+</body>
+</html>
